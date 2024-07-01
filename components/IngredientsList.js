@@ -1,6 +1,7 @@
 import ingredients from "@/assets/ingredients.json";
 import styled from "styled-components";
 import Image from "next/image";
+import Link from "next/link";
 
 const IngredientsList = () => {
   const flavorColors = {
@@ -17,30 +18,34 @@ const IngredientsList = () => {
     Tangy: "#FFA07A",
     Umami: "#188989",
   };
+
   return (
     <>
       <Title>Ingredients Overview</Title>
       <Container>
         <List>
           {ingredients.map((ingredient) => (
-            <ListItem
+            <StyledLink
               key={ingredient._id}
-              $color={flavorColors[ingredient.flavor]}
+              href={`/ingredients/${ingredient._id}`} // Add link to ingredient details page
+              passHref
             >
-              <ImageWrapper>
-                <StyledImage
-                  src={ingredient.imgUrl}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  alt={ingredient.name}
-                />
-              </ImageWrapper>
-              <StyledContent>
-                <Name>{ingredient.name}</Name>
-                <br></br>
-                <Flavor>#{ingredient.flavor}</Flavor>
-              </StyledContent>
-            </ListItem>
+              <ListItem $color={flavorColors[ingredient.flavor]}>
+                <ImageWrapper>
+                  <StyledImage
+                    src={ingredient.imgUrl}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    alt={ingredient.name}
+                  />
+                </ImageWrapper>
+                <StyledContent>
+                  <Name>{ingredient.name}</Name>
+                  <br></br>
+                  <Flavor>#{ingredient.flavor}</Flavor>
+                </StyledContent>
+              </ListItem>
+            </StyledLink>
           ))}
         </List>
       </Container>
@@ -93,6 +98,7 @@ const ListItem = styled.li`
   align-items: center;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.05);
@@ -125,9 +131,18 @@ const Name = styled.span`
 const Flavor = styled.span`
   font-style: italic;
   font-size: 14px;
+  border: 1px solid ${(props) => props.$color || "#fff"};
+  padding: 3px;
+  border-radius: 10px;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const StyledImage = styled(Image)`
+  padding: 5px;
   align-self: stretch;
   height: 210px;
   overflow: hidden;
@@ -137,7 +152,7 @@ const StyledImage = styled(Image)`
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: 20px;
 `;
 
 export default IngredientsList;
