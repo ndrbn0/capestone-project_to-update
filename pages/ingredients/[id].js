@@ -30,41 +30,39 @@ const IngredientDetails = () => {
 
   return (
     <PageContainer>
+      <BackLink href="/">
+        <ArrowIcon />
+        Back
+      </BackLink>
       <Container>
-        <BackLink href="/">
-          <ArrowIcon />
-          Back
-        </BackLink>
-        <Content>
-          <ImageWrapper>
-            <StyledImage
-              src={ingredient.imgUrl}
-              layout="responsive"
-              width={600}
-              height={400}
-              alt={ingredient.name}
-            />
-          </ImageWrapper>
-          <Details $color={flavorColors[ingredient.flavor]}>
-            <Name>{ingredient.name}</Name>
-            <Flavor>#{ingredient.flavor}</Flavor>
-          </Details>
-        </Content>
+        <ImageWrapper>
+          <StyledImage
+            src={ingredient.imgUrl}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            alt={ingredient.name}
+          />
+        </ImageWrapper>
+        <Details $color={flavorColors[ingredient.flavor]}>
+          <Name>{ingredient.name}</Name>
+          <Flavor>#{ingredient.flavor}</Flavor>
+        </Details>
       </Container>
     </PageContainer>
   );
 };
 
 const PageContainer = styled.div`
+  padding: 20px;
+  margin-top: 8%;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
 `;
 
 const Container = styled.div`
-  width: 600px;
-  height: 680px;
+  width: 300px;
+  height: 380px;
   margin: 0 auto; /* Center horizontally */
   border-radius: 15px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -104,11 +102,11 @@ const ArrowIcon = styled.span`
   margin-right: 10px;
 `;
 
-const Content = styled.div`
+/* const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`; */
 
 const ImageWrapper = styled.div`
   width: 300px;
@@ -122,13 +120,22 @@ const ImageWrapper = styled.div`
 `;
 
 const StyledImage = styled(Image)`
-  align-self: center;
-  border-radius: 10px;
+  padding: 5px;
+  align-self: stretch;
+  height: 210px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  border-radius: 20px;
 `;
 
 const Details = styled.div`
+  width: 100%;
   margin-top: 10%;
-  width: 180%;
   display: flex;
   border-radius: 10px;
   background-color: ${(props) => props.$color || "#fff"};
@@ -140,11 +147,11 @@ const Details = styled.div`
 
 const Name = styled.h1`
   margin: 0;
-  font-size: 2em;
+  font-size: 18px;
 `;
 
 const Flavor = styled.p`
-  font-size: 1.2em;
+  font-size: 14px;
   font-style: italic;
 `;
 
